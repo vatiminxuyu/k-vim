@@ -27,7 +27,11 @@ call plug#begin('~/.vim/bundle')
 " 移动光标到插件名上, 使用 '#' 快速跳转到每个插件的配置处
 
 " syntastic
-Plug 'scrooloose/syntastic'
+if v:version < 800
+    Plug 'scrooloose/syntastic'
+else
+    Plug 'w0rp/ale'
+endif
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets 中是代码片段资源, 需要学习)
@@ -147,7 +151,7 @@ if has_key(g:plugs, 'syntastic')
     " checkers
     " python
     " pip install flake8
-    let g:syntastic_python_checkers = ['flake8', ] " 使用 pyflakes, 速度比 pylint 快
+    let g:syntastic_python_checkers = ['pylint', 'flake8', ] " 使用 pyflakes, 速度比 pylint 快
     let g:syntastic_python_flake8_args = '--ignore=E501,E225,E124,E712,E116,E131'
 
     " checkers
@@ -206,6 +210,46 @@ if has_key(g:plugs, 'syntastic')
     nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
 endif
 " }}}
+
+
+" ale {{{
+if has_key(g:plugs, 'ale')
+    " pip install pylint flake8
+    " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard
+    " npm install -g eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
+    let g:ale_linters = {
+    \   'python': ['pylint', 'flake8'],
+    \   'javascript': ['eslint'],
+    \}
+    let g:ale_python_pylint_options = '--ignore=E501,E225,E124,E712,E116,E131'
+    let g:ale_python_flake8_options = '--ignore=E501,E225,E124,E712,E116,E131'
+
+    let g:ale_set_highlights = 1
+    let g:ale_sign_error = '✗'
+    let g:ale_sign_warning = '⚠'
+
+    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+    nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
+    nmap <silent> <Leader>en <Plug>(ale_next_wrap)
+    nnoremap <silent> <Leader>ec :ALEToggle<CR>
+
+    " troggle quickfix list
+    function! ToggleErrors()
+        let old_last_winnr = winnr('$')
+        lclose
+        if old_last_winnr == winnr('$')
+            " Nothing was closed, open syntastic_error location panel
+            lopen
+        endif
+    endfunction
+    nnoremap <Leader>s :call ToggleErrors()<cr>
+endif
+" }}}
+
 
 " ################### 自动补全 ###################
 
