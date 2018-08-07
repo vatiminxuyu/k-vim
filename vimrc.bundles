@@ -223,8 +223,8 @@ if has_key(g:plugs, 'ale')
     \}
     " let g:ale_python_pylint_options = '--ignore=E501,E225,E124,E712,E116,E131'
     " let g:ale_python_flake8_options = '--ignore=E501,E225,E124,E712,E116,E131'
-    let g:ale_python_pylint_options = '--ignore=E501'
-    let g:ale_python_flake8_options = '--ignore=E501'
+    let g:ale_python_pylint_options = '--disable=missing-docstring --max-line-length=160'
+    let g:ale_python_flake8_options = '--ignore=E501,E225,E124,E712,E116,E131'
 
     let g:ale_set_highlights = 1
     let g:ale_sign_error = '✗'
