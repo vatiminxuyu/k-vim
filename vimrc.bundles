@@ -152,7 +152,7 @@ if has_key(g:plugs, 'syntastic')
     " python
     " pip install flake8
     let g:syntastic_python_checkers = ['pylint', 'flake8', ] " 使用 pyflakes, 速度比 pylint 快
-    let g:syntastic_python_flake8_args = '--ignore=E501,E225,E124,E712,E116,E131'
+    let g:syntastic_python_flake8_args = '--ignore=E124 --max-line-length=160'
 
     " checkers
     " cpp
@@ -175,7 +175,7 @@ if has_key(g:plugs, 'syntastic')
             Errors
         endif
     endfunction
-    nnoremap <Leader>s :call ToggleErrors()<cr>
+    nnoremap <Leader>el :call ToggleErrors()<cr>
 
     " ,en ,ep to jump between errors
     function! <SID>LocationPrevious()
@@ -221,10 +221,18 @@ if has_key(g:plugs, 'ale')
     \   'python': ['pylint', 'flake8'],
     \   'javascript': ['eslint'],
     \}
-    " let g:ale_python_pylint_options = '--ignore=E501,E225,E124,E712,E116,E131'
-    " let g:ale_python_flake8_options = '--ignore=E501,E225,E124,E712,E116,E131'
-    let g:ale_python_pylint_options = '--disable=missing-docstring --max-line-length=160'
-    let g:ale_python_flake8_options = '--ignore=E501,E225,E124,E712,E116,E131'
+    " check pylint code with pylint --list-msgs or pylint --help
+    " missing-docstring (C0111): *Missing %s docstring*
+    " relative-import (W0403): *Relative import %r, should be %r*
+    " no-self-use (R0201): *Method could be a function*
+    " too-many-instance-attributes (R0902): *Too many instance attributes (%s/%s)*
+    " too-few-public-methods (R0903): *Too few public methods (%s/%s)*
+    " too-many-public-methods (R0904): *Too many public methods (%s/%s)*
+    let g:ale_python_pylint_options = '--disable=C0111,W0403,R0201,R0902,R0903,R0904 --max-line-length=160 --variable-naming-style=any --const-naming-style=any'
+
+    " pep8 doc http://pep8.readthedocs.io/en/latest/intro.html#error-codes
+    " E124 closing bracket does not match visual indentation
+    let g:ale_python_flake8_options = '--ignore=E124 --max-line-length=160'
 
     let g:ale_set_highlights = 1
     let g:ale_sign_error = '✗'
@@ -248,7 +256,7 @@ if has_key(g:plugs, 'ale')
             lopen
         endif
     endfunction
-    nnoremap <Leader>s :call ToggleErrors()<cr>
+    nnoremap <Leader>el :call ToggleErrors()<cr>
 endif
 " }}}
 
