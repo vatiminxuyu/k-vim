@@ -416,8 +416,9 @@ endif
     let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = '⎇'
     let g:airline#extensions#whitespace#mixed_indent_algo = 2
-    " 是否打开 tabline
-    " let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#fnamecollapse = 1
+    let g:airline#extensions#tabline#formatter = 'default'
 " }}}
 
 " rainbow_parentheses {{{
@@ -516,7 +517,7 @@ endif
 
 " linux-coding-style {{{
    nnoremap <silent> <leader>l :LinuxCodingStyle<CR>
-   " let g:linuxsty_patterns = [ "/usr/src/", "/linux" ]
+   let g:linuxsty_patterns = [ "/usr/src/", "/media/nvme/qiyu.xy/kernel/" ]
 " }}}
 
 " pythonsyntax {{{

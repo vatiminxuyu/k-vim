@@ -229,7 +229,7 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-nnoremap <C-w> :call NumberToggle()<cr>
+nnoremap <leader>n :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Ref: http://sunaku.github.io/vim-256color-bce.html
@@ -494,7 +494,7 @@ nnoremap U <C-r>
 " 具体编辑文件类型的一般设置，比如不要 tab 等
 autocmd FileType c,cpp set tabstop=8 shiftwidth=8 noexpandtab ai
 autocmd FileType make set noexpandtab ai
-autocmd FileType python,java set tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType python,java,bash,sh,shell set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType perl,ruby,javascript,html,css,xml,markdown set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
