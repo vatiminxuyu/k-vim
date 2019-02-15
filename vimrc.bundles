@@ -56,7 +56,8 @@ Plug 'scrooloose/nerdcommenter'
 
 " 快速加入修改环绕字符
 " for repeat -> enhance surround.vim, . to repeat command
-" Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
@@ -104,8 +105,8 @@ Plug 'thinca/vim-quickrun'
 " linux-coding-style
 Plug 'vivien/vim-linux-coding-style'
 
-" java-getset
-Plug 'vim-scripts/java_getset.vim'
+" vim-signature 标记
+Plug 'kshenoy/vim-signature'
 
 if count(g:bundle_groups, 'tmux')
     " For tmux navigator Ctrl-hjkl
