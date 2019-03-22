@@ -108,8 +108,11 @@ Plug 'vivien/vim-linux-coding-style'
 " vim-signature 标记
 Plug 'kshenoy/vim-signature'
 
-" fzf
+" fzf fuzz search
 Plug '~/.fzf'
+
+" grubbox color scheme
+Plug 'morhetz/gruvbox'
 
 if count(g:bundle_groups, 'tmux')
     " For tmux navigator Ctrl-hjkl
