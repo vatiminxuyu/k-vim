@@ -514,31 +514,40 @@ endfun
 " autocmd FileType java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " 定义函数AutoSetFileHead，自动插入文件头
-autocmd BufNewFile *.sh,*.pl,*.py,*cpp exec ":call AutoSetFileHead()"
+autocmd BufNewFile *.sh,*.pl,*.py,*.c,*cpp,*.stp exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
-    "如果文件类型为.sh 文件
+    "如果文件类型为 sh
     if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
+        call setline(1, "#!/bin/bash")
     endif
 
-    "如果文件类型为.pl 文件
+    "如果文件类型为 pl
     if &filetype == 'perl'
         call setline(1, "#!/usr/bin/perl")
     endif
 
-    "如果文件类型为 python
+    "如果文件类型为 py
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# -*- coding: utf-8 -*-")
-        " call setline(1, "\# -*- coding: utf-8 -*-")
+        call setline(1, "#!/usr/bin/env python")
+        call append(1, "# -*- coding: utf-8 -*-")
+        " call setline(2, "# -*- coding: utf-8 -*-")
+    endif
+
+    "如果文件类型为 c
+    if &filetype == 'c'
+        call setline(1, "#include <stdio.h>")
     endif
 
     "如果文件类型为 cpp
     if &filetype == 'cpp'
-        call setline(1, "\#include <iostream>")
-        call setline(2, "\#include <vector>")
+        call setline(1, "#include <iostream>")
+        call setline(2, "#include <vector>")
         call setline(3, "using namespace std;")
-        call setline(4, "")
+    endif
+
+    "如果文件类型为 stp
+    if &filetype == 'stp'
+        call setline(1, "#!/usr/bin/stap")
     endif
 
     normal G
