@@ -160,7 +160,7 @@ if has_key(g:plugs, 'syntastic')
     " pip install flake8
     " let g:syntastic_python_checkers = ['pylint', 'flake8', ] " 使用 pyflakes, 速度比 pylint 快
     let g:syntastic_python_checkers = ['flake8', ] " 使用 pyflakes, 速度比 pylint 快
-    let g:syntastic_python_flake8_args = '--ignore=E124 --max-line-length=160'
+    let g:syntastic_python_flake8_args = '--ignore=E124 --max-line-length=120'
 
     " checkers
     " cpp
@@ -236,11 +236,11 @@ if has_key(g:plugs, 'ale')
     " too-many-instance-attributes (R0902): *Too many instance attributes (%s/%s)*
     " too-few-public-methods (R0903): *Too few public methods (%s/%s)*
     " too-many-public-methods (R0904): *Too many public methods (%s/%s)*
-    let g:ale_python_pylint_options = '--disable=C0111,W0403,R0201,R0902,R0903,R0904 --max-line-length=160 --variable-naming-style=any --const-naming-style=any --argument-naming-style=any'
+    let g:ale_python_pylint_options = '--disable=C0111,W0403,R0201,R0902,R0903,R0904 --max-line-length=120 --variable-naming-style=any --const-naming-style=any --argument-naming-style=any'
 
     " pep8 doc http://pep8.readthedocs.io/en/latest/intro.html#error-codes
     " E124 closing bracket does not match visual indentation
-    let g:ale_python_flake8_options = '--ignore=E124 --max-line-length=160'
+    let g:ale_python_flake8_options = '--ignore=E124 --max-line-length=120'
 
     let g:ale_set_highlights = 1
     let g:ale_sign_error = '✗'
@@ -522,7 +522,7 @@ endif
 " }}}
 
 " linux-coding-style {{{
-   nnoremap <silent> <leader>l :LinuxCodingStyle<CR>
+   nnoremap <silent> <leader>ls :LinuxCodingStyle<CR>
    let g:linuxsty_patterns = [ "/usr/src/", "/media/nvme/qiyu.xy/kernel/" ]
 " }}}
 
