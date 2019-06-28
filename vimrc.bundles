@@ -223,8 +223,12 @@ endif
 " ale {{{
 if has_key(g:plugs, 'ale')
     " pip install pylint flake8
+    " pip install yamllint
+    " pip install cmakelint
     " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard
     " npm install -g eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
+    " npm install -g markdownlint
+    " yum install ShellCheck
     let g:ale_linters = {
     \   'python': ['pylint'],
     \   'javascript': ['eslint'],
