@@ -198,17 +198,17 @@ set autoindent
 
 " Tab 相关设置
 " 设置 Tab 键的宽度        [等同的空格个数]
-set tabstop=8
+set tabstop=4
 " 每一次缩进对应的空格数
-set shiftwidth=8
+set shiftwidth=4
 " 按退格键时可以一次删掉 8 个空格
-set softtabstop=8
+set softtabstop=4
 " insert tabs on the start of a line according to shiftwidth, not tabstop
 " 按退格键时可以一次删掉 8 个空格
 set smarttab
 " 将 Tab 自动转化成空格[需要输入真正的 Tab 键时，使用 Ctrl + V + Tab]
 " 在内核开发时，Tab 不能转换为空格
-" set expandtab
+set expandtab
 " 缩进时，取整 use multiple of shiftwidth when indenting with '<' and '>'
 set shiftround
 
@@ -650,3 +650,11 @@ highlight LeaderTab guifg=#666666
 highlight LeaderSpace guifg=#666666
 match LeaderTab /^\t/
 match LeaderSpace /^\ /
+
+" length 80 check
+if exists('+colorcolumn')
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=DarkCyan
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
