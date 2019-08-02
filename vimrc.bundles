@@ -222,18 +222,19 @@ endif
 
 " ale {{{
 if has_key(g:plugs, 'ale')
+    " yum install ShellCheck
     " pip install pylint flake8
+    " pip install gitlint
     " pip install yamllint
     " pip install cmakelint
-    " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard
-    " npm install -g eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
+    " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
     " npm install -g markdownlint
-    " yum install ShellCheck
+    " manually install checkmake
     let g:ale_linters = {
-    \   'python': ['pylint'],
+    \   'python': ['flake8'],
     \   'javascript': ['eslint'],
     \}
-    " check pylint code with pylint --list-msgs or pylint --help
+    " pylint doc: pylint --list-msgs or pylint --help
     " missing-docstring (C0111): *Missing %s docstring*
     " relative-import (W0403): *Relative import %r, should be %r*
     " no-self-use (R0201): *Method could be a function*
@@ -242,9 +243,15 @@ if has_key(g:plugs, 'ale')
     " too-many-public-methods (R0904): *Too many public methods (%s/%s)*
     let g:ale_python_pylint_options = '--disable=C0111,W0403,R0201,R0902,R0903,R0904 --max-line-length=120 --variable-naming-style=any --const-naming-style=any --argument-naming-style=any'
 
-    " pep8 doc http://pep8.readthedocs.io/en/latest/intro.html#error-codes
+    " pep8 doc: http://pep8.readthedocs.io/en/latest/intro.html#error-codes
+    " E123 closing bracket does not match indentation of opening bracket’s line
     " E124 closing bracket does not match visual indentation
-    let g:ale_python_flake8_options = '--ignore=E124 --max-line-length=120'
+    " E125 continuation line with same indent as next logical line
+    " E126 continuation line over-indented for hanging indent
+    " E127 continuation line over-indented for visual indent
+    " E128 continuation line under-indented for visual indent
+    " E302 expected 2 blank lines, found 0
+    let g:ale_python_flake8_options = '--ignore=E123,E124,E125,E126,E127,E128,E302 --max-line-length=120'
 
     let g:ale_set_highlights = 1
     let g:ale_sign_error = '✗'
