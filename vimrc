@@ -495,11 +495,11 @@ nnoremap U <C-r>
 autocmd FileType c,cpp,make set tabstop=8 shiftwidth=8 noexpandtab ai
 autocmd FileType bash,sh,shell,awk set tabstop=4 shiftwidth=4 noexpandtab ai
 autocmd FileType python,java set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
-autocmd FileType perl,ruby,javascript,html,css,xml,markdown set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType javascript,html,css,xml,markdown set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 
 " disable showmatch when use > in php
-au BufWinEnter *.php set mps-=<:>
+" au BufWinEnter *.php set mps-=<:>
 
 " 保存python文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
