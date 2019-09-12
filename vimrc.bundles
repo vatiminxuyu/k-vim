@@ -108,11 +108,14 @@ Plug 'vivien/vim-linux-coding-style'
 " vim-signature 标记
 Plug 'kshenoy/vim-signature'
 
-" fzf fuzz search
-Plug '~/.fzf'
-
 " grubbox color scheme
 Plug 'morhetz/gruvbox'
+
+" ifdef highlight
+Plug 'vim-scripts/ifdef-highlighting'
+
+" fzf fuzz search
+Plug '~/.fzf'
 
 if count(g:bundle_groups, 'tmux')
     " For tmux navigator Ctrl-hjkl
@@ -537,10 +540,16 @@ endif
    let g:linuxsty_patterns = [ "/usr/src/", "/media/nvme/qiyu.xy/kernel/" ]
 " }}}
 
-" pythonsyntax {{{
+" python-syntax {{{
     let python_highlight_all = 1
 " }}}
 
 " json {{{
     let g:vim_json_syntax_conceal = 0
+" }}}
+
+" ################### 自定义 ###################
+"
+" ifdef-highlighting {{{
+    source ~/.vim/bundle/ifdef-highlighting/syntax/ifdef.vim
 " }}}
