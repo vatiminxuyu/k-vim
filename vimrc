@@ -460,6 +460,7 @@ cmap w!! w !sudo tee >/dev/null %
 
 " kj 替换 Esc
 inoremap kj <Esc>
+inoremap <C-c> <Esc>
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 4<C-e>
