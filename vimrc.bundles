@@ -80,9 +80,6 @@ Plug 'vim-airline/vim-airline-themes'
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
 
-" solarized 主题
-Plug 'altercation/vim-colors-solarized'
-
 " 导航
 " nerdtree nerdtreetabs
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
@@ -108,14 +105,20 @@ Plug 'vivien/vim-linux-coding-style'
 " vim-signature 标记
 Plug 'kshenoy/vim-signature'
 
-" grubbox color scheme
-Plug 'morhetz/gruvbox'
-
 " ifdef highlight
 Plug 'vim-scripts/ifdef-highlighting'
 
 " fzf fuzz search
 Plug '~/.fzf'
+
+" solarized color scheme
+Plug 'altercation/vim-colors-solarized'
+
+" grubbox color scheme
+Plug 'morhetz/gruvbox'
+
+" dracula color scheme
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 if count(g:bundle_groups, 'tmux')
     " For tmux navigator Ctrl-hjkl
