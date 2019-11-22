@@ -494,8 +494,8 @@ nnoremap U <C-r>
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
 autocmd FileType c,cpp,make set tabstop=8 shiftwidth=8 noexpandtab ai
-autocmd FileType bash,sh,shell,awk set tabstop=4 shiftwidth=4 noexpandtab ai
 autocmd FileType python,java set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
+autocmd FileType bash,sh,shell,awk set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType javascript,html,css,xml,markdown set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 
