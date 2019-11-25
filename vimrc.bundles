@@ -1,30 +1,22 @@
-" ==========================================
-" bundle 插件管理和配置项
-" ==========================================
+"==========================================
+" vimrc bundles
+"==========================================
 
-" ################### 包依赖 #####################
-" package dependence:  ctags, ag(he_silver_searcher)
-" python dependence:   pep8, pyflake
+" dependency
+" ycm:  ctags, ag (the_silver_searcher)
+" python:   pep8, pyflake
 
-" 非兼容 vi 模式。去掉讨厌的有关 vi 一致性模式，避免以前版本的一些bug和局限
+" disable vi mode
 set nocompatible
 filetype off " required! turn off
 
-" ################### 插件管理 ###################
-
-" inspired by spf13, 自定义需要的插件集合
+" inspired by spf13, bundle group
 if !exists('g:bundle_groups')
     let g:bundle_groups=['c', 'tmux', 'python']
 endif
 
-" ----------------------------------------------------------------------------
-" 使用 vim-plug 管理插件
 " vim plugin bundle control, command model
-" ----------------------------------------------------------------------------
-
 call plug#begin('~/.vim/bundle')
-
-" 移动光标到插件名上, 使用 '#' 快速跳转到每个插件的配置处
 
 " syntastic
 if v:version < 800
@@ -33,55 +25,41 @@ else
     Plug 'w0rp/ale'
 endif
 
-" Group dependencies, vim-snippets depends on ultisnips
-" 代码片段快速插入 (snippets 中是代码片段资源, 需要学习)
-" Snippets are separated from the engine. Add this if you want them:
+" vim_snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " YouCompleteMe
-" 代码自动补全
-" 迄今为止用到的最好的自动VIM自动补全插件
-" 重启 :YcmRestartServer
+" cheat: restart: YcmRestartServer
 Plug 'Valloric/YouCompleteMe'
 
-" 自动补全单引号，双引号等
+" delimitMate
 Plug 'Raimondi/delimitMate'
 
-" 自动补全html/xml标签
-Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
-
-" quick edit
-" 快速注释
+" nerdcommenter
 Plug 'scrooloose/nerdcommenter'
 
-" 快速加入修改环绕字符
+" quick surround
 " for repeat -> enhance surround.vim, . to repeat command
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 
-" trailingwhitespace
-" 快速去行尾空格 [, + <Space>]
+" trailing_whitespace
 Plug 'bronson/vim-trailing-whitespace'
 
 " easyalign
-" 快速赋值语句对齐
 Plug 'junegunn/vim-easy-align'
 
-" 多光标选中编辑
-" multiplecursors
+" multiple_cursors
 Plug 'terryma/vim-multiple-cursors'
 
 " airline
-" 状态栏增强展示
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " rainbow_parentheses
-" 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
 
-" 导航
-" nerdtree nerdtreetabs
+" nerdtree nerdtree_tabs
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 
 " ctrlspace
@@ -90,22 +68,16 @@ Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
 Plug 'majutsushi/tagbar'
 
-" git 插件
+" git_fugitive
 Plug 'tpope/vim-fugitive'
 
-" gundo 历史内容
-Plug 'sjl/gundo.vim'
-
-" quickrun 快速运行
-Plug 'thinca/vim-quickrun'
-
-" linux-coding-style
+" linux_coding_style
 Plug 'vivien/vim-linux-coding-style'
 
-" vim-signature 标记
+" vim signature/mark/label
 Plug 'kshenoy/vim-signature'
 
-" ifdef highlight
+" ifdef_highlighting
 Plug 'vim-scripts/ifdef-highlighting'
 
 " fzf fuzz search
@@ -120,11 +92,8 @@ Plug 'altercation/vim-colors-solarized'
 " grubbox color scheme
 Plug 'morhetz/gruvbox'
 
-" dracula color scheme
-Plug 'dracula/vim', { 'as': 'dracula' }
-
 if count(g:bundle_groups, 'tmux')
-    " For tmux navigator Ctrl-hjkl
+    " tmux navigator Ctrl-hjkl
     Plug 'christoomey/vim-tmux-navigator'
 endif
 
@@ -139,7 +108,8 @@ if count(g:bundle_groups, 'python')
     " https://github.com/fisadev/vim-isort#installation
     " pip install isort
     Plug 'fisadev/vim-isort'
-    " Shift-V 上下选中, Ctrl+i 规范化
+    " hot key: select: Shift-v
+    " hot key: sort: Ctrl-i
     let g:vim_isort_map = '<C-i>'
 endif
 
@@ -147,54 +117,51 @@ if count(g:bundle_groups, 'json')
     Plug 'elzr/vim-json', {'for': 'json'}
 endif
 
-" Add plugins to &runtimepath
+" add plugins to &runtimepath
 call plug#end()
-
-
-" ################### 基础 ######################
 
 " syntastic {{{
 if has_key(g:plugs, 'syntastic')
     " dependence
     " shellcheck `brew install shellcheck` https://github.com/koalaman/shellcheck
 
-    let g:syntastic_error_symbol = '✗'
-    let g:syntastic_warning_symbol = '⚠'
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_enable_highlighting = 1
+    let g:syntastic_error_symbol='✗'
+    let g:syntastic_warning_symbol='⚠'
+    let g:syntastic_check_on_open=1
+    let g:syntastic_check_on_wq=0
+    let g:syntastic_enable_highlighting=1
 
     " checkers
     " python
     " pip install flake8
-    " let g:syntastic_python_checkers = ['pylint', 'flake8', ] " 使用 pyflakes, 速度比 pylint 快
-    let g:syntastic_python_checkers = ['flake8', ] " 使用 pyflakes, 速度比 pylint 快
-    let g:syntastic_python_flake8_args = '--ignore=E124 --max-line-length=120'
+    " let g:syntastic_python_checkers = ['pylint', 'flake8', ]
+    let g:syntastic_python_checkers=['flake8', ]
+    let g:syntastic_python_flake8_args='--ignore=E124 --max-line-length=120'
 
     " checkers
     " cpp
     " g++, c++11
-    let g:syntastic_cpp_compiler = 'g++'
-    let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ '
+    let g:syntastic_cpp_compiler='g++'
+    let g:syntastic_cpp_compiler_options=' -std=c++11 -stdlib=libc++ '
 
     " see error location list
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_enable_signs = 1
-    let g:syntastic_auto_loc_list = 0
-    let g:syntastic_auto_jump = 0
-    let g:syntastic_loc_list_height = 5
+    let g:syntastic_always_populate_loc_list=1
+    let g:syntastic_enable_signs=1
+    let g:syntastic_auto_loc_list=0
+    let g:syntastic_auto_jump=0
+    let g:syntastic_loc_list_height=5
 
     function! ToggleErrors()
-        let old_last_winnr = winnr('$')
+        let old_last_winnr=winnr('$')
         lclose
         if old_last_winnr == winnr('$')
-            " Nothing was closed, open syntastic_error location panel
+            " nothing was closed, open syntastic_error location panel
             Errors
         endif
     endfunction
     nnoremap <Leader>el :call ToggleErrors()<cr>
 
-    " ,en ,ep to jump between errors
+    " <leader>en and <leader>ep to jump between errors
     function! <SID>LocationPrevious()
     try
         lprev
@@ -216,14 +183,14 @@ if has_key(g:plugs, 'syntastic')
     nmap <silent> <Leader>ep    <Plug>LocationPrevious
     nmap <silent> <Leader>en    <Plug>LocationNext
 
-    " 修改高亮的背景色, 适应主题
+    " modify highlight background color to fit theme
+    " FIXME
     highlight SyntasticErrorSign guifg=white guibg=black
 
     " thanks to @marsqing, see https://github.com/wklken/k-vim/issues/164
-    " let g:syntastic_mode_map = {'mode': 'passive', "active_filetypes": ["python", "cpp"]}
-    let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['c', 'cpp', 'java'] }
+    let g:syntastic_mode_map={'mode': 'active', 'passive_filetypes': ['c', 'cpp', 'java'] }
 
-    " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
+    " hot key: disable syntastic
     nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
 endif
 " }}}
@@ -239,7 +206,7 @@ if has_key(g:plugs, 'ale')
     " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
     " npm install -g markdownlint
     " manually install checkmake
-    let g:ale_linters = {
+    let g:ale_linters={
     \   'python': ['flake8'],
     \   'javascript': ['eslint'],
     \}
@@ -250,7 +217,7 @@ if has_key(g:plugs, 'ale')
     " too-many-instance-attributes (R0902): *Too many instance attributes (%s/%s)*
     " too-few-public-methods (R0903): *Too few public methods (%s/%s)*
     " too-many-public-methods (R0904): *Too many public methods (%s/%s)*
-    let g:ale_python_pylint_options = '--disable=C0111,W0403,R0201,R0902,R0903,R0904 --max-line-length=120 --variable-naming-style=any --const-naming-style=any --argument-naming-style=any'
+    let g:ale_python_pylint_options='--disable=C0111,W0403,R0201,R0902,R0903,R0904 --max-line-length=120 --variable-naming-style=any --const-naming-style=any --argument-naming-style=any'
 
     " pep8 doc: http://pep8.readthedocs.io/en/latest/intro.html#error-codes
     " E123 closing bracket does not match indentation of opening bracket’s line
@@ -260,16 +227,16 @@ if has_key(g:plugs, 'ale')
     " E127 continuation line over-indented for visual indent
     " E128 continuation line under-indented for visual indent
     " E302 expected 2 blank lines, found 0
-    let g:ale_python_flake8_options = '--ignore=E123,E124,E125,E126,E127,E128,E302 --max-line-length=120'
+    let g:ale_python_flake8_options='--ignore=E123,E124,E125,E126,E127,E128,E302 --max-line-length=120'
 
-    let g:ale_set_highlights = 1
-    let g:ale_sign_error = '✗'
-    let g:ale_sign_warning = '⚠'
+    let g:ale_set_highlights=1
+    let g:ale_sign_error='✗'
+    let g:ale_sign_warning='⚠'
 
-    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-    let g:ale_echo_msg_error_str = 'E'
-    let g:ale_echo_msg_warning_str = 'W'
-    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+    let g:ale_statusline_format=['⨉ %d', '⚠ %d', '⬥ ok']
+    let g:ale_echo_msg_error_str='E'
+    let g:ale_echo_msg_warning_str='W'
+    let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
 
     nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
     nmap <silent> <Leader>en <Plug>(ale_next_wrap)
@@ -280,7 +247,7 @@ if has_key(g:plugs, 'ale')
         let old_last_winnr = winnr('$')
         lclose
         if old_last_winnr == winnr('$')
-            " Nothing was closed, open syntastic_error location panel
+            " nothing was closed, open syntastic_error location panel
             lopen
         endif
     endfunction
@@ -288,71 +255,62 @@ if has_key(g:plugs, 'ale')
 endif
 " }}}
 
-
-" ################### 自动补全 ###################
-
 " YouCompleteMe {{{
-    "youcompleteme  默认tab  s-tab 和自动补全冲突
-    " let g:ycm_key_list_select_completion =['<C-n>']
-    " let g:ycm_key_list_select_completion = ['<Down>']
-    let g:ycm_key_list_select_completion = ['<C-j>', '<C-n>', '<Down>']
-    " let g:ycm_key_list_previous_completion=['<C-p>']
-    " let g:ycm_key_list_previous_completion = ['<Up>']
-    let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-    let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-    let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-    let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    " 开启语法关键字补全
-    let g:ycm_seed_identifiers_with_syntax = 1
-    " 回车作为选中
-    let g:ycm_key_list_stop_completion = ['<CR>']
+    " YCM default tab conflicts with s-tab
+    let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
+    let g:ycm_key_list_previous_completion=['<C-k>', '<C-p>', '<Up>']
+    let g:ycm_complete_in_comments=1
+    let g:ycm_complete_in_strings=1
+    let g:ycm_use_ultisnips_completer=1
+    let g:ycm_collect_identifiers_from_comments_and_strings=1
+    let g:ycm_collect_identifiers_from_tags_files=1
+    " enable syntax auto-complete
+    let g:ycm_seed_identifiers_with_syntax=1
+    " select with enter
+    let g:ycm_key_list_stop_completion=['<CR>']
 
-    " 语言关键字补全, python 关键字都很短，需要的自己打开
+    " enable keywork auto-complete
     let g:ycm_seed_identifiers_with_syntax=1
 
     " disable syntastic_check in youcompleteme
-    let g:ycm_show_diagnostics_ui = 0
+    let g:ycm_show_diagnostics_ui=0
 
-    " 跳转到定义处, 分屏打开
-    let g:ycm_goto_buffer_command = 'horizontal-split'
-    let g:ycm_register_as_syntastic_checker = 0
+    " jump to definition in split window
+    let g:ycm_goto_buffer_command='horizontal-split'
+    let g:ycm_register_as_syntastic_checker=0
     " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
     nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-    " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
-    let g:ycm_confirm_extra_conf = 0
+    let g:ycm_confirm_extra_conf=0
     " old version
     if !empty(glob("~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py"))
-        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py"
+        let g:ycm_global_ycm_extra_conf="~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py"
     endif
     " new version
     if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py"))
-        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py"
+        let g:ycm_global_ycm_extra_conf="~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py"
     endif
 
-    " 直接触发自动补全 insert 模式下
-    " let g:ycm_key_invoke_completion = '<C-Space>'
-    " 黑名单, 不启用
-    let g:ycm_filetype_blacklist = {
+    " trigger YCM in insert mode
+    " let g:ycm_key_invoke_completion='<C-Space>'
+    " blacklist
+    let g:ycm_filetype_blacklist={
         \ 'tagbar' : 1,
         \}
 " }}}
 
 " ultisnips {{{
-    let g:UltiSnipsExpandTrigger       = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
-    let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-    let g:snips_author = "Xu Yu"
-    let g:snips_author_email = "vatiminxuyu@gmail.com"
-    " 定义存放代码片段的文件夹 .vim/UltiSnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
-    " 进入对应filetype的snippets进行编辑
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    let g:UltiSnipsSnippetDirectories=['UltiSnips']
+    let g:UltiSnipsSnippetsDir='~/.vim/UltiSnips'
+    let g:snips_author="Xu Yu"
+    let g:snips_author_email="vatiminxuyu@gmail.com"
+    " location: .vim/UltiSnips
     map <leader>us :UltiSnipsEdit<CR>
 
-    " Ctrl+j/k 进行选择
+    " select with Ctrl-j/k
     func! g:JInYCM()
         if pumvisible()
             return "\<C-n>"
@@ -370,26 +328,20 @@ endif
     endfunction
     inoremap <C-j> <C-r>=g:JInYCM()<CR>
     au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-r>=g:KInYCM()<CR>"
-    let g:UltiSnipsJumpBackwordTrigger = "<C-k>"
+    let g:UltiSnipsJumpBackwordTrigger="<C-k>"
 " }}}
 
 " delimitMate {{{
-    " for python docstring, 优化输入
-    au FileType python let b:delimitMate_nesting_quotes = ['"']
+    " optimization for python docstring
+    au FileType python let b:delimitMate_nesting_quotes=['"']
 " }}}
-
-" closetag {{{
-    let g:closetag_html_style = 1
-" }}}
-
-" ################### 快速编码 ###################
 
 " nerdcommenter {{{
-    let g:NERDSpaceDelims = 1
-    let g:NERDAltDelims_python = 1
+    let g:NERDSpaceDelims=1
+    let g:NERDAltDelims_python=1
 " }}}
 
-" trailingwhitespace {{{
+" trailing_whitespace {{{
     map <leader><space> :FixWhitespace<cr>
 " }}}
 
@@ -397,61 +349,49 @@ endif
     vmap <Leader>a <Plug>(EasyAlign)
     nmap <Leader>a <Plug>(EasyAlign)
     if !exists('g:easy_align_delimiters')
-    let g:easy_align_delimiters = {}
+    let g:easy_align_delimiters={}
     endif
-    let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
-    " Default:
-    " If a delimiter is in a highlight group whose name matches any of the followings, it will be ignored.
-    let g:easy_align_ignore_groups = ['Comment', 'String']
+    let g:easy_align_delimiters['#']={ 'pattern': '#', 'ignore_groups': ['String'] }
+    " default:
+    " if a delimiter is in a highlight group whose name matches any of the followings, it will be ignored.
+    let g:easy_align_ignore_groups=['Comment', 'String']
 " }}}
 
-" ################### 快速选中 ###################
-
-" multiplecursors {{{
+" multiple_cursors {{{
     let g:multi_cursor_use_default_mapping=0
-    " Default mapping
+    " default mapping
     let g:multi_cursor_next_key='<C-m>'
     let g:multi_cursor_prev_key='<C-p>'
     let g:multi_cursor_skip_key='<C-x>'
     let g:multi_cursor_quit_key='<Esc>'
 " }}}
 
-" ################### 功能相关 ###################
-
-" git
-" fugitive {{{
+" git_fugitive {{{
     nnoremap <leader>gb :Gblame<CR>
     nnoremap <leader>gs :Gstatus<CR>
     nnoremap <leader>gd :Gdiff<CR>
 " }}}
 
-" gundo {{{
-    noremap <leader>h :GundoToggle<CR>
-" }}}
-
-" ################### 显示增强 ###################
-
 " airline {{{
     if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
+        let g:airline_symbols={}
     endif
-    let g:airline_left_sep = '▶'
-    let g:airline_left_alt_sep = '❯'
-    let g:airline_right_sep = '◀'
-    let g:airline_right_alt_sep = '❮'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.branch = '⎇'
-    let g:airline#extensions#whitespace#enabled = 0
-    " let g:airline#extensions#whitespace#mixed_indent_algo = 2
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#fnamecollapse = 1
-    let g:airline#extensions#tabline#formatter = 'default'
+    let g:airline_left_sep='▶'
+    let g:airline_left_alt_sep='❯'
+    let g:airline_right_sep='◀'
+    let g:airline_right_alt_sep='❮'
+    let g:airline_symbols.linenr='¶'
+    let g:airline_symbols.branch='⎇'
+    let g:airline#extensions#whitespace#enabled=0
+    let g:airline#extensions#tabline#enabled=1
+    let g:airline#extensions#tabline#fnamecollapse=1
+    let g:airline#extensions#tabline#formatter='default'
 " }}}
 
 " rainbow_parentheses {{{
-    " 不加入这行, 防止黑色括号出现, 很难识别
+    " do not draw black parentheses
     " \ ['black',       'SeaGreen3'],
-    let g:rbpt_colorpairs = [
+    let g:rbpt_colorpairs=[
         \ ['brown',       'RoyalBlue3'],
         \ ['Darkblue',    'SeaGreen3'],
         \ ['darkgray',    'DarkOrchid3'],
@@ -469,15 +409,13 @@ endif
         \ ['red',         'firebrick3'],
         \ ]
 
-    let g:rbpt_max = 16
-    let g:rbpt_loadcmd_toggle = 0
+    let g:rbpt_max=16
+    let g:rbpt_loadcmd_toggle=0
     au VimEnter * RainbowParenthesesToggle
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 " }}}
-
-" ################### 显示增强-主题 ###############
 
 " solarized {{{
     let g:solarized_termtrans=1
@@ -486,32 +424,29 @@ endif
     " let g:solarized_termcolors=256
 " }}}
 
-" ################### 快速导航 ###################
-
-" nerdtree nerdtreetabs {{{
+" nerdtree nerdtree_tabs {{{
     " map <leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
     "close vim if the only window left open is a NERDTree
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-    " s/v 分屏打开文件
-    let g:NERDTreeMapOpenSplit = 's'
-    let g:NERDTreeMapOpenVSplit = 'v'
+    " open file in split window: s/v
+    let g:NERDTreeMapOpenSplit='s'
+    let g:NERDTreeMapOpenVSplit='v'
 
-    " nerdtreetabs
+    " nerdtree_tabs
     map <F7> <plug>NERDTreeTabsToggle<CR>
-    " 关闭同步
+    " disable sync
     " let g:nerdtree_tabs_synchronize_view=0
     " let g:nerdtree_tabs_synchronize_focus=0
-    " 是否自动开启nerdtree
+    " auto enable nerdtree
     " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
     let g:nerdtree_tabs_open_on_console_startup=0
     let g:nerdtree_tabs_open_on_gui_startup=0
 " }}}
 
-" Vim Workspace Controller
 " ctrlspace {{{
-    let g:airline_exclude_preview = 1
+    let g:airline_exclude_preview=1
     hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
     hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
     hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
@@ -519,45 +454,28 @@ endif
     nnoremap <silent> <Leader>f :CtrlSpace O<CR>
 " }}}
 
-" 标签导航
 " tagbar {{{
     nmap <F8> :TagbarToggle<CR>
-    let g:tagbar_width = 40
-    let g:tagbar_autofocus = 1
-    let g:tagbar_left = 1
-    " let g:tagbar_autoshowtag = 1
-    " let g:tagbar_show_visibility = 1
+    let g:tagbar_width=40
+    let g:tagbar_autofocus=1
+    let g:tagbar_left=1
+    " let g:tagbar_autoshowtag=1
+    " let g:tagbar_show_visibility=1
 " }}}
 
-" ################### 语言相关 ###################
-
-" quickrun {{{
-    let g:quickrun_config = {
-    \   "_" : {
-    \       "outputter" : "message",
-    \   },
-    \}
-
-    let g:quickrun_no_default_key_mappings = 1
-    nmap <Leader>r <Plug>(quickrun)
-    map <F10> :QuickRun<CR>
-" }}}
-
-" linux-coding-style {{{
+" linux_coding_style {{{
    nnoremap <silent> <leader>ls :LinuxCodingStyle<CR>
-   let g:linuxsty_patterns = [ "/usr/src/", "/media/nvme/qiyu.xy/kernel/" ]
+   let g:linuxsty_patterns=[ "/usr/src/", "/media/nvme/qiyu.xy/kernel/" ]
 " }}}
 
-" python-syntax {{{
-    let python_highlight_all = 1
+" python_syntax {{{
+    let python_highlight_all=1
 " }}}
 
 " json {{{
-    let g:vim_json_syntax_conceal = 0
+    let g:vim_json_syntax_conceal=0
 " }}}
 
-" ################### 自定义 ###################
-"
-" ifdef-highlighting {{{
+" ifdef_highlighting {{{
     source ~/.vim/bundle/ifdef-highlighting/syntax/ifdef.vim
 " }}}
