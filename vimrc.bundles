@@ -111,6 +111,9 @@ Plug 'vim-scripts/ifdef-highlighting'
 " fzf fuzz search
 Plug '~/.fzf'
 
+" better syntax highlighting
+Plug 'sheerun/vim-polyglot'
+
 " solarized color scheme
 Plug 'altercation/vim-colors-solarized'
 
@@ -438,7 +441,8 @@ endif
     let g:airline_right_alt_sep = '❮'
     let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = '⎇'
-    let g:airline#extensions#whitespace#mixed_indent_algo = 2
+    let g:airline#extensions#whitespace#enabled = 0
+    " let g:airline#extensions#whitespace#mixed_indent_algo = 2
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#fnamecollapse = 1
     let g:airline#extensions#tabline#formatter = 'default'
