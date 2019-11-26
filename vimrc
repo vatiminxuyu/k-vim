@@ -510,6 +510,7 @@ endif
 " color theme
 colorscheme gruvbox
 set background=dark
+let g:airline_theme='gruvbox'
 
 " set background color of signcolumn as numcolumn
 hi! link SignColumn   LineNr
