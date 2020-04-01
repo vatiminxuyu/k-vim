@@ -77,9 +77,6 @@ Plug 'vivien/vim-linux-coding-style'
 " vim signature/mark/label
 Plug 'kshenoy/vim-signature'
 
-" ifdef_highlighting
-Plug 'vim-scripts/ifdef-highlighting'
-
 " fzf fuzz search
 Plug '~/.fzf'
 
@@ -478,10 +475,6 @@ endif
 
 " json {{{
     let g:vim_json_syntax_conceal=0
-" }}}
-
-" ifdef_highlighting {{{
-    source ~/.vim/bundle/ifdef-highlighting/syntax/ifdef.vim
 " }}}
 
 " git_blame {{{

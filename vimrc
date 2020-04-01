@@ -274,21 +274,18 @@ nnoremap gj j
 " I can type :help on my own, thanks.
 " protect your fat fingers from the evils of <F1>
 noremap <F1> <Esc>
-
 " F2: show (or not) line number
 nnoremap <F2> :set number! number?<CR>
 " F3 show (or not) printable character like tab/space/etc.
 nnoremap <F3> :set list! list?<CR>
 " F4 cross (or not) line
 nnoremap <F4> :set wrap! wrap?<CR>
-
-" F6 syntax on (or off)
-nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-
 " F5 paste on (or off) in insert mode
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
+" F6 syntax on (or off)
+nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
