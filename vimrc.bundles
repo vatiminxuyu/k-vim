@@ -83,11 +83,8 @@ Plug '~/.fzf'
 " better syntax highlighting
 Plug 'sheerun/vim-polyglot'
 
-" solarized color scheme
-Plug 'altercation/vim-colors-solarized'
-
-" grubbox color scheme
-Plug 'morhetz/gruvbox'
+" vim color scheme
+Plug 'flazz/vim-colorschemes'
 
 " git_blame in status line
 Plug 'zivyangll/git-blame.vim'

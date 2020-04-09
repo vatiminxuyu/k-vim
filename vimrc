@@ -505,9 +505,9 @@ if has("gui_running")
 endif
 
 " color theme
-colorscheme gruvbox
-set background=dark
-let g:airline_theme='gruvbox'
+" set background=dark
+colorscheme cobalt2
+let g:airline_theme='cobalt2'
 
 " set background color of signcolumn as numcolumn
 hi! link SignColumn   LineNr
