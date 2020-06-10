@@ -89,6 +89,10 @@ Plug 'flazz/vim-colorschemes'
 " git_blame in status line
 Plug 'zivyangll/git-blame.vim'
 
+" vim_mark multiple words
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-mark'
+
 if count(g:bundle_groups, 'tmux')
     " tmux navigator Ctrl-hjkl
     Plug 'christoomey/vim-tmux-navigator'
