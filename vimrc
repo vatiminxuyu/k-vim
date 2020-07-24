@@ -186,7 +186,8 @@ set ttyfast
 " +- j/k with decimal
 set nrformats=
 
-" absolute line number
+" relative line number
+set relativenumber
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber number
@@ -403,8 +404,8 @@ inoremap kj <Esc>
 inoremap <C-c> <Esc>
 
 " speed up scrolling of the viewport slightly
-nnoremap <C-e> 4<C-e>
-nnoremap <C-y> 4<C-y>
+nnoremap <C-e> 8<C-e>
+nnoremap <C-y> 8<C-y>
 
 " jump to start and end of line using the home row keys
 " nmap t o<ESC>k
@@ -421,7 +422,7 @@ nnoremap U <C-r>
 
 " filetype setting
 autocmd FileType c,cpp,make set tabstop=8 shiftwidth=8 noexpandtab ai
-autocmd FileType bash,sh,shell,awk set tabstop=4 shiftwidth=4 noexpandtab ai
+autocmd FileType bash,sh,shell,awk set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType python,java set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
 autocmd FileType javascript,html,css,xml,markdown set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
@@ -563,7 +564,7 @@ match LeaderSpace /^\ /
 " length 80 check
 if exists('+colorcolumn')
     set colorcolumn=80
-    highlight ColorColumn ctermbg=DarkCyan
+    highlight ColorColumn ctermbg=LightRed
 else
     au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
